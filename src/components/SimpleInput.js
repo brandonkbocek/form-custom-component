@@ -1,26 +1,25 @@
-import { useState } from 'react';
 import useInput from '../hooks/use-input';
 
 const SimpleInput = (props) => {
 
-  const { 
-    value: enteredName, 
-    isValid: enterednameIsValid,
-    hasError: nameInputHasError, 
+  const {
+    value: enteredName,
+    // isValid: enteredNameIsValid,
+    hasError: nameInputHasError,
     valueChangeHandler: nameChangedHandler,
     inputBlurHandler: nameBlurHandler,
     reset: resetNameInput
   } = useInput(value => value.trim() !== '');
-  
-const {
-  value: enteredEmail,
-  isValid: enteredEmailIsValid,
-  hasError: emailInputHasError,
-  valueChangeHandler: emailChangedHandler,
-  inputBlurHandler: emailBlurHandler,
-  reset: resetEmailInput
-} = useInput(value => value.includes('@'));
- 
+
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangedHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput
+  } = useInput(value => value.includes('@'));
+
   let emailWarning = '';
 
   if (!enteredEmailIsValid) {
@@ -31,8 +30,8 @@ const {
     // prevent default stops the page from re-loading
     event.preventDefault();
 
+    const formIsValid = !emailInputHasError && !nameInputHasError;
 
-    const formIsValid = !emailInputHasError && !nameInputHasError
     if (formIsValid) {
       console.log('submitting form')
       console.log(enteredName);
@@ -43,12 +42,10 @@ const {
   };
 
   const nameInputClasses = nameInputHasError
-    ? 'form-control invalid'
-    : 'form-control';
+    ? 'form-control invalid' : 'form-control';
 
   const emailInputClasses = emailInputHasError
-    ? 'form-control invalid'
-    : 'form-control';
+    ? 'form-control invalid' : 'form-control';
 
   return (
     <form onSubmit={formSubmissionHandler}>
